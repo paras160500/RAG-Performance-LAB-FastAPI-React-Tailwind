@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.api.routes.health import router as health_router
+from app.api.routes.retrieval import router as retrieval_router
 
 app = FastAPI(
     title = "RAG Performance LAB",
@@ -8,6 +9,7 @@ app = FastAPI(
 )
 
 app.include_router(health_router , prefix = "/api")
+app.include_router(retrieval_router , prefix="/api")
 
 @app.get("/")
 async def root():
