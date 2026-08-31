@@ -55,7 +55,7 @@ class FAISSRetrievalEngine:
         """
             Save the FAISS index to disk
         """
-        if self.IndentationError is None:
+        if self.index is None:
             raise RuntimeError("Cannot save any empty FAISS index.")
 
         file_path = Path(path)
