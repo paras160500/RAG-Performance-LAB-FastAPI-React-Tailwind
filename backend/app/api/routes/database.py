@@ -2,11 +2,11 @@ from fastapi import APIRouter,HTTPException
 from app.services.database_service import DatabaseService
 
 router = APIRouter(
-    prefix="/database",
-    tags = ["Database"]
+    prefix="/datasets",
+    tags = ["Datasets"]
 )
 
-@router.get("/datasets/{dataset_id}")
+@router.get("/{dataset_id}")
 async def get_dataset(dataset_id : str):
     try:
         service = DatabaseService()

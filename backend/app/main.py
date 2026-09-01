@@ -4,6 +4,7 @@ from app.api.routes.retrieval import router as retrieval_router
 from contextlib import asynccontextmanager
 from app.services.container import retrieval_service
 from app.api.routes.benchmark import router as benchmark_router 
+from app.api.routes.database import router as database_router
 
 @asynccontextmanager
 async def lifespan(app:FastAPI):
@@ -23,6 +24,7 @@ app = FastAPI(
 app.include_router(health_router , prefix = "/api")
 app.include_router(retrieval_router , prefix="/api")
 app.include_router(benchmark_router , prefix="/api")
+app.include_router(database_router , prefix="/api")
 
 @app.get("/")
 async def root():

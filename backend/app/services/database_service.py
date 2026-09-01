@@ -38,8 +38,20 @@ class DatabaseService:
                 }
             )
 
-            response = (
-                self.client.table("benchmark_runs").insert(rows).execute()
-            )
+        response = (
+            self.client.table("benchmark_runs").insert(rows).execute()
+        )
 
-            return response.data 
+        if not response.data:
+            raise RuntimeError("Failed to save benchmark results.")
+
+        return response.data
+
+
+    def get_recent_benchmarks(self , limit : int = 20) -> list[dict]:
+        response = (
+            self.client.table("benchmark_runs").select("*").order("created_at" , desc=True).limit(limit).execute()
+        ) 
+        return response.data or []
+
+

@@ -6,6 +6,7 @@ class BenchMarkRequest(BaseModel):
     )
     top_k : int = Field(default = 5 , ge = 1)
     iteration : int = Field(default=10, ge=1,le=1000)
+    seed : int = Field(default=123)
 
 class AlgorithmBenchmark(BaseModel):
     algorithm : str 
@@ -17,6 +18,7 @@ class AlgorithmBenchmark(BaseModel):
     queries_per_second : float 
 
 class BenchmarkResponse(BaseModel):
+    query_id : str 
     top_k : int 
     results : list[AlgorithmBenchmark]
-    speedup : float | None = None 
+    speedup : float
