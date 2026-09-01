@@ -1,11 +1,9 @@
 import numpy as np 
 from app.retrieval.cosine import cosine_similairy
 
-def retrieve_top_k(
-    query_vector: np.ndarray,
-    documents_vector: np.ndarray,
-    top_k: int = 5,
-):
+def retrieve_top_k(query_vector: np.ndarray,documents_vector: np.ndarray,top_k: int = 5):
+    query_vector = np.asarray(query_vector, dtype=np.float32)
+    documents_vector = np.asarray(documents_vector,dtype=np.float32)
     if query_vector.ndim != 1:
         raise ValueError("query_vector must be a 1D vector")
 
