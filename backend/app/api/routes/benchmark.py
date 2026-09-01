@@ -13,14 +13,15 @@ benchmark_service = BenchmarkService(retrieval_service)
 @router.post("/run" , response_model=BenchmarkResponse)
 async def run_benchmark(request : BenchMarkRequest):
     try:
-        results = benchmark_service.benchmark(
+        results , speedup = benchmark_service.benchmark(
             query_vector=request.query_vector,
             top_k=request.top_k,
             iterations=request.iteration
         )
         return BenchmarkResponse(
             top_k=request.top_k,
-            results=results
+            results=results,
+            speedup=speedup
         )
     except(ValueError , RuntimeError) as exc:
         raise HTTPException(status_code=400 , detail=str(exc)) from exc

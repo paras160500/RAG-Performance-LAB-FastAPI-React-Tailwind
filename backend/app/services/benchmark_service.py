@@ -6,7 +6,7 @@ class BenchmarkService:
     def __init__(self , retrieval_service : RetrievalService):
         self.retrieval_service = retrieval_service
 
-    def benchmark(self , query_vector : list[float] , top_k : int , iterations : int) -> list[dict]:
+    def benchmark(self , query_vector : list[float] , top_k : int , iterations : int) -> tuple[list[dict] , float]:
         query_vector = np.asarray(query_vector, dtype=np.float32)
         results = []
         algorithms = ["numpy" , "faiss"]
@@ -38,4 +38,8 @@ class BenchmarkService:
                 }
             )
 
-        return results
+        numpy_result = next(result for result in results if result['algorithm'] == "numpy")
+        faiss_result = next(result for result in results if result['algorithm'] == "faiss")
+        speedup = (numpy_result['average_latency_ms'] / faiss_result['average_latency_ms'])
+
+        return results , round(speedup , 4)

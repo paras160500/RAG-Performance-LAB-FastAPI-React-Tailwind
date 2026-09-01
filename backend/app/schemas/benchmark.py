@@ -19,3 +19,4 @@ class AlgorithmBenchmark(BaseModel):
 class BenchmarkResponse(BaseModel):
     top_k : int 
     results : list[AlgorithmBenchmark]
+    speedup : float | None = None 
