@@ -14,22 +14,22 @@ class RetrievalService:
         self.embeddings:np.ndarray | None = None 
         self.faiss_engine : FAISSRetrievalEngine | None = None 
 
-        def load(self) -> None:
-            """
-                Load the dataset and FAISS index
-            """
-            self.embeddings = load_embeddings(self.embeddings_path)
-            self.faiss_engine = FAISSRetrievalEngine()
-            self.faiss_engine.load(self.faiss_index_path)
+    def load(self) -> None:
+        """
+            Load the dataset and FAISS index
+        """
+        self.embeddings = load_embeddings(self.embeddings_path)
+        self.faiss_engine = FAISSRetrievalEngine()
+        self.faiss_engine.load(self.faiss_index_path)
 
-        def search(self , query_vector : list[float] , algorithm : str , top_k : int) -> list[dict]:
-            if self.embeddings is None:
-                raise RuntimeError("Retrieval dataset has not been loaded")
-            query = np.asarray(query_vector , dtype = np.float32)
-            if algorithm == "numpy":
-                return retrieve_top_k(query_vector , self.embeddings , top_k)
-            if algorithm == "faiss":
-                if self.faiss_engine is None:
-                    raise RuntimeError("FAISS Engine has not been loaded")
-                return self.faiss_engine.search(query , top_k)
-            raise ValueError(f"unsupported algo { algorithm}")
+    def search(self , query_vector : list[float] , algorithm : str , top_k : int) -> list[dict]:
+        if self.embeddings is None:
+            raise RuntimeError("Retrieval dataset has not been loaded")
+        query = np.asarray(query_vector , dtype = np.float32)
+        if algorithm == "numpy":
+            return retrieve_top_k(query_vector , self.embeddings , top_k)
+        if algorithm == "faiss":
+            if self.faiss_engine is None:
+                raise RuntimeError("FAISS Engine has not been loaded")
+            return self.faiss_engine.search(query , top_k)
+        raise ValueError(f"unsupported algo { algorithm}")
