@@ -9,5 +9,7 @@ class Settings:
     APP_VERSION : str = os.getenv("APP_VERSION" , "0.1.0")
     EMBEDDINGS_PATH : str = os.getenv("EMBEDDINGS_PATH" , "data/embeddings/embeddings_10k_1536.npy")
     FAISS_INDEX_PATH : str = os.getenv("FAISS_INDEX_PATH" , "data/indexes/faiss_10k_1536.index")
+    SUPABASE_URL : str = os.getenv("SUPABASE_URL" , "")
+    SUPABASE_KEY : str = os.getenv("SUPABASE_KEY" , "")
 
 settings = Settings()
