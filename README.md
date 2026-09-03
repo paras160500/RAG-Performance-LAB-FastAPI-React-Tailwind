@@ -32,7 +32,11 @@
 
 > ⏱️ Both services run on Render's free tier — the **first** request after idle may take a few seconds to wake up.
 
+
+
 ---
+
+![Architecture Diagram](diagram.png)
 
 ## 📖 Contents
 
